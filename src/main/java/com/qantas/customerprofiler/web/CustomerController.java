@@ -4,16 +4,16 @@ import com.qantas.customerprofiler.service.CustomerCreateService;
 import com.qantas.customerprofiler.service.CustomerDeleteService;
 import com.qantas.customerprofiler.service.CustomerUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.xml.ws.Response;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@Controller
+@RestController
 public class CustomerController {
     @Autowired
     CustomerCreateService createService;
