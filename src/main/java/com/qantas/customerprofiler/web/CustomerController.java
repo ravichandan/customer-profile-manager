@@ -26,17 +26,20 @@ public class CustomerController {
     @PostMapping(path = "/customers", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     public Response createCustomer() {
 
+        return null;
     }
 
     // To delete an existing customer
     @DeleteMapping(path = "/customers", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    public Response createCustomer() {
+    public Response deleteCustomer() {
 
+        return null;
     }
 
     // To update an existing customer
     @PutMapping(path = "/customers", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    public Response createCustomer() {
+    public Response updateCustomer() {
 
+        return null;
     }
 }

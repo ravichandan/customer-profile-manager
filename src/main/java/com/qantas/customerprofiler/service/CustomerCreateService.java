@@ -1,7 +1,9 @@
 package com.qantas.customerprofiler.service;
 
+import org.springframework.http.ResponseEntity;
+
 import java.util.Map;
 
 public interface CustomerCreateService {
-    long createCustomer(Map<String,Object> customerDetails) ;
+    ResponseEntity createCustomer(Map<String,Object> customerDetails) throws Exception;
 }
