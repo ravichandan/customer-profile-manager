@@ -7,7 +7,7 @@
 * A node webserver to enable server-side rendering for webapp.
 
 ### Project Architecture 
-![Project Architecture](ProjectArchitecture.png)
+![Project Architecture](Project-Architecture.png)
 
 * User uses mobile or web UI to interact with the system to deal with customer data. 
 Users can send three types of requests, `'Create Customer'` request, `'Delete Customer'` or a `'Update Customer'` request with customer details. 

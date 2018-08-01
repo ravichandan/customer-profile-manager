@@ -2,7 +2,7 @@ swagger: "2.0"
 info:
   description: "This is a customer profile management system"
   version: "1.0.0"
-  title: "Cat Pet Store"
+  title: "Customer Profile Management"
   termsOfService: "http://swagger.io/terms/"
   contact:
     email: "s.ravichandan@gmail.com"
@@ -13,7 +13,7 @@ host: "qantas.customer.io"
 basePath: "/v1"
 tags:
 - name: "Customer"
-  description: "Everying about Customers"
+  description: "Everything about Customers"
   externalDocs:
     description: "Find out more"
     url: "http://swagger.io"
@@ -32,14 +32,12 @@ paths:
       operationId: "addCustomer"
       consumes:
       - "application/json"
-      - "application/xml"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - in: "body"
         name: "body"
-        description: "Customer object that needs to be added to the store"
+        description: "Customer object that needs to be added"
         required: true
         schema:
           $ref: "#/definitions/Customer"
@@ -58,9 +56,7 @@ paths:
       operationId: "updateCustomer"
       consumes:
       - "application/json"
-      - "application/xml"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - in: "body"
@@ -80,7 +76,7 @@ paths:
       - customerstore_auth:
         - "write:customers"
         - "read:customers"
-    
+
   /customers/{customerId}:
     get:
       tags:
@@ -89,7 +85,6 @@ paths:
       description: "Returns a single customer"
       operationId: "getCustomerById"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - name: "customerId"
@@ -116,7 +111,6 @@ paths:
       description: ""
       operationId: "deleteCustomer"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - name: "api_key"
@@ -146,7 +140,6 @@ paths:
       description: ""
       operationId: "loginUser"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - name: "username"
@@ -183,7 +176,6 @@ paths:
       description: ""
       operationId: "logoutUser"
       produces:
-      - "application/xml"
       - "application/json"
       parameters: []
       responses:
@@ -241,7 +233,7 @@ definitions:
       address:
         type: "array"
         items:
-          $ref: "#/definitions/Address"      
+          $ref: "#/definitions/Address"
       first-name:
         type: "string"
         example: "Albert"
@@ -266,7 +258,7 @@ definitions:
         format: "int64"
       user-name:
         type: "string"
-        example: "Albert"  
+        example: "Albert"
       password:
         type: "string"
         example: "*******"
