@@ -1,6 +1,7 @@
 ## Customer Profile Manager
 
-###Assumptions
+
+### Assumptions
 * The system can be interacted only through web and mobile channels, not through any third party applications.
 * Auth server is in place for Authentication and authorization.
 * A node webserver to enable server-side rendering for webapp.
@@ -29,5 +30,19 @@ API Contract is done in swagger. Find the file with name `'Api Contract Swagger.
 ### Security
 The below flow diagram explains the Authentication and Authorization mechanisms in detail. 
 
-Flow:
 ![Security.png](Flow-Diagram.png)
+
+### Project Code
+This project shows the middleware mechanism of Customer CRUD services and their interaction with API Gateway and Auth Server.
+* `Create Service` to create customer by taking all the details in json.
+* `Read Service` to find a customer by id.
+* `Update Service` to update an existing customer by taking all the details in json.  
+* `Delete Service` to delete a customer by id. 
+
+`Authorization` header is to be sent for all the requests to the API Gateway and it authorizes the token with Auth server and forwards the request only if its valid. JUnit test cases were included to cover all the scenarios of the business logic flow. 
+
+#### How to run:
+
+- **Run the test cases to see the functionality.** Feel free to edit or add more.
+
+- You can also run the Spring boot app by running `CustomerProfilerApplication` class by placing the correct domain, port and path values in application.properties.
