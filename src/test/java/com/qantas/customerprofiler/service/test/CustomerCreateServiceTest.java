@@ -1,6 +1,7 @@
 package com.qantas.customerprofiler.service.test;
 
 import com.qantas.customerprofiler.service.impl.CustomerCreateServiceImpl;
+import com.qantas.customerprofiler.validation.ValidationService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +26,7 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {CustomerCreateServiceImpl.class, RestTemplate.class})
+@ContextConfiguration(classes = {CustomerCreateServiceImpl.class, RestTemplate.class, ValidationService.class})
 @TestPropertySource(locations = "classpath:test-application.properties")
 public class CustomerCreateServiceTest {
     @Autowired

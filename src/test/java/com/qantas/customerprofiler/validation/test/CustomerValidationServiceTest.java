@@ -8,13 +8,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {ValidationService.class})
+@ContextConfiguration(classes = {ValidationService.class, RestTemplate.class})
 
 public class CustomerValidationServiceTest {
     @Autowired
@@ -65,10 +66,4 @@ public class CustomerValidationServiceTest {
         Assert.assertNull(errors);
     }
 
-    @Test
-    public void validateEmptyIdForUpdateCustomerTest() {
-        customerDetails.remove("id");
-        List<String> errors = validationService.validate(customerDetails);
-        Assert.assertEquals(1, errors.size());
-    }
 }

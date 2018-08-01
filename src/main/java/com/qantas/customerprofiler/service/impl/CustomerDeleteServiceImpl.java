@@ -35,21 +35,23 @@ public class CustomerDeleteServiceImpl implements CustomerDeleteService {
     public ResponseEntity deleteCustomer(Long id) {
         logger.debug("Received customer details to delete");
 
-        if (id == null || id==0l) {
+        if (id == null || id == 0l) {
             logger.error("Id can't be null");
             return ResponseEntity.badRequest().body("'id' can't be null. Please see specifications for more details");
         }
 
         logger.debug("Sending request to CRM system to delete the customer");
-        String url = this.crmHost + ":" + this.crmPort + this.urlPath;
-        this.restTemplate.delete(url+"/"+id);
+        String url = this.crmHost + ":" + this.crmPort + this.urlPath + "/" + id;
 
-        ResponseEntity readResponse=readService.readCustomer(id);
-        if(readResponse.getStatusCode() == HttpStatus.NOT_FOUND){
+        try {
+            this.restTemplate.delete(url);
             logger.debug("Customer record is successfully deleted");
             return ResponseEntity.accepted().body("Customer record was deleted successfully");
+
+        } catch (Exception e) {
+            logger.error("Could not delete customer");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Could not delete customer due to fatal reasons");
         }
-        logger.error("Could not delete customer");
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Could not delete customer due to fatal reasons");
+
     }
 }

@@ -2,6 +2,7 @@ package com.qantas.customerprofiler.service.test;
 
 import com.qantas.customerprofiler.service.CustomerUpdateService;
 import com.qantas.customerprofiler.service.impl.CustomerUpdateServiceImpl;
+import com.qantas.customerprofiler.validation.ValidationService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,7 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {CustomerUpdateServiceImpl.class, RestTemplate.class})
+@ContextConfiguration(classes = {CustomerUpdateServiceImpl.class, RestTemplate.class,  ValidationService.class})
 @TestPropertySource(locations = "classpath:test-application.properties")
 public class CustomerUpdateServiceTest {
     @Autowired
@@ -70,7 +71,7 @@ public class CustomerUpdateServiceTest {
     }
 
     @Test
-    public void deleteCustomerTest() {
+    public void updateCustomerTest() {
         customerDetails.put("details", "other information");
 
         Map<String, String> homeAddress = new HashMap<>();
@@ -85,11 +86,11 @@ public class CustomerUpdateServiceTest {
 
         customerDetails.put("address", addresses);
         ResponseEntity response = updateService.updateCustomer(customerDetails);
-        Assert.assertEquals("Customer should be successfully deleted", 202, response.getStatusCodeValue());
+        Assert.assertEquals("Customer should be successfully updated", 202, response.getStatusCodeValue());
     }
 
     @Test
-    public void failDeletingCustomerWhenIdIsZeroTest() {
+    public void failUpdatingCustomerWhenIdIsZeroTest() {
 
         customerDetails.remove("id");
         ResponseEntity response = updateService.updateCustomer(customerDetails);
@@ -98,7 +99,7 @@ public class CustomerUpdateServiceTest {
 
 
     @Test
-    public void failDeletingCustomerWhenIdIsNullTest() {
+    public void failUpdatingCustomerWhenIdIsNullTest() {
         customerDetails.put("id", "0");
         ResponseEntity response = updateService.updateCustomer(customerDetails);
         Assert.assertEquals("Customer updating should fail", 400, response.getStatusCodeValue());
