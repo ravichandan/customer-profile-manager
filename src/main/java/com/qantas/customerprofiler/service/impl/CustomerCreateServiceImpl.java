@@ -42,7 +42,6 @@ public class CustomerCreateServiceImpl implements CustomerCreateService {
         ResponseEntity response = this.restTemplate.postForEntity(url, customerDetails, String.class);
         HttpStatus status = response.getStatusCode();
         if (status.is2xxSuccessful()) {
-//            Integer customerId = Integer.parseInt(response.getBody().toString());
             logger.debug("Customer Id created: " + response.getBody().toString());
         }
 

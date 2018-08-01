@@ -24,18 +24,13 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
-//@RunWith(MockitoJUnitRunner.class)
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {CustomerCreateServiceImpl.class, RestTemplate.class})
-@TestPropertySource(locations="classpath:test-application.properties")
-public class CustomerCreateServiceTest
-//        extends AbstractJUnit4SpringContextTests
-{
+@TestPropertySource(locations = "classpath:test-application.properties")
+public class CustomerCreateServiceTest {
     @Autowired
-//    @InjectMocks
     private CustomerCreateServiceImpl customerCreateService;
 
-//    @Mock
     @Autowired
     private RestTemplate restTemplate;
 
@@ -72,7 +67,6 @@ public class CustomerCreateServiceTest
 
     @Test
     public void createCustomerTest() {
-        actions.andRespond(withSuccess("{customerId:1}", MediaType.APPLICATION_JSON));
         customerDetails.put("details", "other information");
 
         Map<String, String> homeAddress = new HashMap<>();
@@ -92,7 +86,6 @@ public class CustomerCreateServiceTest
 
     @Test
     public void failCreatingCustomerWhenCustomerDetailsAreNullTest() {
-
         ResponseEntity response = customerCreateService.createCustomer(null);
         Assert.assertEquals("Customer creation should fail", 400, response.getStatusCodeValue());
     }
@@ -100,7 +93,6 @@ public class CustomerCreateServiceTest
 
     @Test
     public void failCreatingCustomerWhenCustomerDetailsAreEmptyTest() {
-
         ResponseEntity response = customerCreateService.createCustomer(new HashMap<>());
         Assert.assertEquals("Customer creation should fail", 400, response.getStatusCodeValue());
     }

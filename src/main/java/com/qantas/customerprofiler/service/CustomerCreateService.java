@@ -5,5 +5,5 @@ import org.springframework.http.ResponseEntity;
 import java.util.Map;
 
 public interface CustomerCreateService {
-    ResponseEntity createCustomer(Map<String,Object> customerDetails) throws Exception;
+    ResponseEntity createCustomer(Map<String,Object> customerDetails);
 }
