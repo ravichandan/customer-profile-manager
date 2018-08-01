@@ -21,6 +21,11 @@ Users can send three types of requests, `'Create Customer'` request, `'Delete Cu
     - If the request is valid, it sends the data to CRM system by calling its APIs. The response from CRM is sent back to client.
     - If the request is invalid, 401 response is sent back so that the upstreams can request for authentication. 
 
+
+### API Contract
+API Contract is done in swagger. Find the file with name `'Api Contract Swagger.yaml'` in the project root folder. 
+
+
 ### Security
 The below flow diagram explains the Authentication and Authorization mechanisms in detail. 
 

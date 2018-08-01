@@ -1,0 +1,275 @@
+swagger: "2.0"
+info:
+  description: "This is a customer profile management system"
+  version: "1.0.0"
+  title: "Cat Pet Store"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "s.ravichandan@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "qantas.customer.io"
+basePath: "/v1"
+tags:
+- name: "Customer"
+  description: "Everying about Customers"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+- name: "user"
+  description: "Admin user authorized to modify customers"
+schemes:
+- "https"
+- "http"
+paths:
+  /customers:
+    post:
+      tags:
+      - "Customer"
+      summary: "Add a new customer"
+      description: ""
+      operationId: "addCustomer"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Customer object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Customer"
+      responses:
+        405:
+          description: "Invalid input"
+      security:
+      - customerstore_auth:
+        - "write:customers"
+        - "read:customers"
+    put:
+      tags:
+      - "Customer"
+      summary: "Update an existing customer"
+      description: ""
+      operationId: "updateCustomer"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Customer object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Customer"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Customer not found"
+        405:
+          description: "Validation exception"
+      security:
+      - customerstore_auth:
+        - "write:customers"
+        - "read:customers"
+    
+  /customers/{customerId}:
+    get:
+      tags:
+      - "Customer"
+      summary: "Find customer by ID"
+      description: "Returns a single customer"
+      operationId: "getCustomerById"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "customerId"
+        in: "path"
+        description: "ID of customer to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Customer"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Customer not found"
+      security:
+      - api_key: []
+    delete:
+      tags:
+      - "Customer"
+      summary: "Deletes a customer"
+      description: ""
+      operationId: "deleteCustomer"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "customerId"
+        in: "path"
+        description: "Customer id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Customer not found"
+      security:
+      - customerstore_auth:
+        - "write:customers"
+        - "read:customers"
+  /user/login:
+    get:
+      tags:
+      - "user"
+      summary: "Logs admin user into the system"
+      description: ""
+      operationId: "loginUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "query"
+        description: "The admin user name for login"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "The password for admin login in clear text"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "string"
+          headers:
+            X-Rate-Limit:
+              type: "integer"
+              format: "int32"
+              description: "calls per hour allowed by the user"
+            X-Expires-After:
+              type: "string"
+              format: "date-time"
+              description: "date in UTC when token expires"
+        400:
+          description: "Invalid admin username/password supplied"
+  /user/logout:
+    get:
+      tags:
+      - "user"
+      summary: "Logs out current logged in admin user session"
+      description: ""
+      operationId: "logoutUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
+      responses:
+        default:
+          description: "successful operation"
+securityDefinitions:
+  customerstore_auth:
+    type: "oauth2"
+    authorizationUrl: "http://qantas.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:customers: "modify customers in your account"
+      read:customers: "read your customers"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  Address:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      type:
+        type: "string"
+        description: "Type of address. Ex Home, Office or Email"
+      lineOne:
+        type: "string"
+        example: "96, Chandos St"
+      lineTwo:
+        type: "string"
+        example: "Line two"
+      suburb:
+        type: "string"
+        example: "Naremburn"
+      state:
+        type: "string"
+        example: "NSW"
+      postalCode:
+        type: "string"
+        description: "Four digit postal code"
+        example: "2065"
+  Customer:
+    type: "object"
+    required:
+    - "first-name"
+    - "last-name"
+    - "date-of-birth"
+    - "address"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      address:
+        type: "array"
+        items:
+          $ref: "#/definitions/Address"      
+      first-name:
+        type: "string"
+        example: "Albert"
+      last-name:
+        type: "string"
+        example: "Einstein"
+      date-of-birth:
+        type: "string"
+        description: "In dd/MM/yyyy format"
+        example: "01/01/1970"
+      details:
+        type: "string"
+        description: "Any other details"
+  User:
+    type: "object"
+    required:
+    - "user-name"
+    - "password"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      user-name:
+        type: "string"
+        example: "Albert"  
+      password:
+        type: "string"
+        example: "*******"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
