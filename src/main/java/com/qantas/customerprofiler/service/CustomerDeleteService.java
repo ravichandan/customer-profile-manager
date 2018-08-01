@@ -4,5 +4,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface CustomerDeleteService {
 
-    public ResponseEntity deleteCustomer(Long Id);
+    ResponseEntity deleteCustomer(Long Id);
 }

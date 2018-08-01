@@ -17,13 +17,13 @@ import java.util.Map;
 @Service
 public class CustomerCreateServiceImpl implements CustomerCreateService {
 
-    Logger logger = LoggerFactory.getLogger(CustomerCreateServiceImpl.class);
+    private Logger logger = LoggerFactory.getLogger(CustomerCreateServiceImpl.class);
 
     @Autowired
-    RestTemplate restTemplate;
+    private RestTemplate restTemplate;
 
     @Autowired
-    ValidationService validationService;
+    private ValidationService validationService;
 
     @Value("${crm.create_url}")
     private String urlPath;

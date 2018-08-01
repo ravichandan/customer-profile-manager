@@ -13,11 +13,10 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class CustomerReadServiceImpl implements CustomerReadService {
 
-    Logger logger = LoggerFactory.getLogger(CustomerReadServiceImpl.class);
+    private Logger logger = LoggerFactory.getLogger(CustomerReadServiceImpl.class);
 
     @Autowired
-    RestTemplate restTemplate;
-
+    private RestTemplate restTemplate;
 
     @Value("${crm.read_url}")
     private String urlPath;
